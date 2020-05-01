@@ -10,5 +10,6 @@ div {
   background: rgba(0, 0, 0, .75);
   color: white;
   margin: 8px; /* Copy body margin to ensure correct box alignment */
+  overflow: hidden;
   position: absolute;
 }
