@@ -1,0 +1,14 @@
+body {
+  font: icon;
+}
+
+canvas {
+  box-shadow: 2px 2px 4px rgba(0, 0, 0, .5);
+}
+
+div {
+  background: rgba(0, 0, 0, .75);
+  color: white;
+  margin: 8px; /* Copy body margin to ensure correct box alignment */
+  position: absolute;
+}
