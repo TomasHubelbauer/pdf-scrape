@@ -1,4 +1,4 @@
-# PDF Scrape
+# [PDF Scrape](https://tomashubelbauer.github.io/pdf-scrape)
 
 0. Print `demo.html` to `demo.pdf` or use your own document
 1. Go to https://mozilla.github.io/pdf.js/getting_started

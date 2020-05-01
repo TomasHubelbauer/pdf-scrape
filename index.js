@@ -27,6 +27,7 @@ window.addEventListener('load', async () => {
 function box(x, y, width, height, title) {
   const boxDiv = window.document.createElement('div');
   boxDiv.textContent = title;
+  boxDiv.title = title;
   boxDiv.style.left = x + 'px';
   boxDiv.style.top = y + 'px';
   boxDiv.style.width = width + 'px';
