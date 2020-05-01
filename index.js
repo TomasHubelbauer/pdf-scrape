@@ -31,7 +31,23 @@ async function go(source) {
     // Note that this method does not accept any arguments
     endLayout: () => { },
 
-    appendImage: ({ imgData, left, top, width, height }) => box(left, top, width, height, `${imgData.data.length} B ${~~width}px × ${~~height}px (natively ${imgData.width}px × ${imgData.height}px) image at ${~~left}px × ${~~top}px`),
+    appendImage: ({ imgData, objId, left, top, width, height }) => {
+      if (!imgData) {
+        // TODO: Fallback: commonObjs
+        const img = page.objs.get(objId);
+        const canvas = window.document.createElement('canvas');
+        canvas.width = img.naturalWidth;
+        canvas.height = img.naturalHeight;
+        const context = canvas.getContext('2d');
+        context.drawImage(img, 0, 0);
+        imgData = context.getImageData(0, 0, img.naturalWidth, img.naturalHeight);
+
+        // TODO: Verify this is always the case for images which come like this
+        top -= height;
+      }
+
+      box(left, top, width, height, `${imgData.data.length} B ${~~width}px × ${~~height}px (natively ${imgData.width}px × ${imgData.height}px) image at ${~~left}px × ${~~top}px`);
+    },
   };
 
   page.render({ canvasContext: context, viewport, imageLayer });
