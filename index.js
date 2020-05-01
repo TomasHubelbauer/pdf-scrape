@@ -1,5 +1,23 @@
 window.addEventListener('load', async () => {
-  const document = await pdfjsLib.getDocument('demo.pdf').promise;
+  const downloadButton = document.getElementById('downloadButton');
+  downloadButton.addEventListener('click', () => go(document.getElementById('urlInput').value));
+  downloadButton.click();
+
+  const fileInput = document.getElementById('fileInput');
+  fileInput.addEventListener('change', () => {
+    const [file] = fileInput.files;
+    if (file) {
+      const fileReader = new FileReader();
+      fileReader.readAsArrayBuffer(file);
+      fileReader.addEventListener('load', () => go(fileReader.result));
+    }
+  });
+});
+
+async function go(source) {
+  [...window.document.getElementsByTagName('div')].forEach(div => div.remove());
+
+  const document = await pdfjsLib.getDocument(source).promise;
   const page = await document.getPage(1);
   const viewport = page.getViewport({ scale: 1 });
   const canvas = window.document.getElementById('pageCanvas');
@@ -22,7 +40,7 @@ window.addEventListener('load', async () => {
   for (const item of items) {
     box(item.transform[4], viewport.height - item.transform[5] - item.height, item.width, item.height, item.str);
   }
-});
+}
 
 function box(x, y, width, height, title) {
   const boxDiv = window.document.createElement('div');
